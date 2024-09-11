@@ -35,13 +35,13 @@ public class ProductController {
 	@GetMapping
 	public ResponseEntity<List<Product>> findAll(){
 		List<Product> products = productService.findAll();
-		return (products.isEmpty()) ? ResponseEntity.notFound().build() : ResponseEntity.ok().body(products);
+		return (products.isEmpty()) ? ResponseEntity.notFound().build() : ResponseEntity.ok(products);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Product>> findById(@PathVariable Long id){
 		Optional<Product> product = productService.findById(id);
-		return (product.isPresent()) ? ResponseEntity.ok().body(product) : ResponseEntity.notFound().build();
+		return (product.isPresent()) ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping

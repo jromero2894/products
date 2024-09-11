@@ -5,11 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jrb.products.model.Product;
 import com.jrb.products.repository.ProductRepository;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class ProductService {
@@ -17,10 +16,12 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	
+	@Transactional(readOnly = true)
 	public List<Product> findAll(){
 		return productRepository.findAll();
 	}
 	
+	@Transactional(readOnly = true)
 	public Optional<Product> findById(Long id){
 		return productRepository.findById(id);
 	}

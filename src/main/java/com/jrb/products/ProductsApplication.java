@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.jrb.products.model.Product;
 import com.jrb.products.service.ProductService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class ProductsApplication implements CommandLineRunner{
@@ -25,4 +28,17 @@ public class ProductsApplication implements CommandLineRunner{
 		this.productService.save(new Product("Mouse", "Electronicos", 400));
 	}
 
+	@Bean
+	public WebMvcConfigurer corsConfigure() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api/**")
+						.allowedMethods("*")
+						.allowedOrigins("*")
+						.allowedHeaders("*")
+						.allowedOriginPatterns("*");
+			}
+		};
+	}
 }
